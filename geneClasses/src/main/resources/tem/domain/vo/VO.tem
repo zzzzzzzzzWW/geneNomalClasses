@@ -1,0 +1,23 @@
+package #project.bashdir#.domain.vo;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+/**
+ * 【请填写功能描述】vo
+ *
+ * @author 【请填写作者】
+ * @date 【请填写日期】
+ */
+@Data
+public class #vo_up# {
+
+    #Field_content_start#
+    /**
+     * #commont#
+     */
+    private #fieldType# #fieldName#;
+    #Field_content_end#
+}

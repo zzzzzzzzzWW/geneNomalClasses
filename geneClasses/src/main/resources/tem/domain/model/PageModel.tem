@@ -1,0 +1,30 @@
+package #project.bashdir#.domain.model;
+
+import lombok.Data;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
+
+@Data
+public abstract class PageModel {
+
+    @NotNull(message = "分页字段 pageSize 不能为空")
+    @Min(value = 0)
+    protected Integer pageSize ;
+
+    @NotNull(message = "分页字段 pageNum 不能为空")
+    @Min(value = 1)
+    protected Integer pageNum;
+
+    protected String orderBy = "createdTime";
+
+    @Pattern(regexp = "asc|desc")
+    protected String sort = "desc";
+
+    protected int offset;
+
+    protected int getOffset() {
+        return (pageNum-1) * pageSize;
+    }
+}

@@ -1,0 +1,127 @@
+package #project.bashdir#.service.impl;
+
+import #project.bashdir#.mapper.#mapper_up#;
+import #project.bashdir#.domain.dto.#dto_up#;
+import #project.bashdir#.domain.model.#model_up#;
+#web_content#
+import #project.bashdir#.domain.vo.PageVO;
+import #project.bashdir#.domain.vo.#vo_up#;
+#web_content#
+import #project.bashdir#.service.#service_up#;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 【请填写功能描述】 接口实现
+ *
+ * @author 【请填写作者】
+ * @date 【请填写日期】
+ */
+@Service
+@Slf4j
+public class #serviceImpl_up# implements #service_up# {
+
+    @Autowired
+    private #mapper_up# #mapper_low#;
+
+    #web_content#
+    @Override
+    public #vo_up# selectByIdForWeb(Integer id) {
+        #dto_up# #dto_low# = selectById(id);
+        if (null != #dto_low#) {
+            #vo_up# #vo_low# = #dto_low#.transferToVo();
+            return #vo_low#;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public PageVO selectListForWeb(#model_up# #model_low#) {
+        List<#dto_up#> #dto_low#S = #mapper_low#.selectListByModel(#model_low#);
+        int total = #mapper_low#.countByModel(#model_low#);
+        List<#vo_up#> list = new ArrayList<>(#dto_low#S.size());
+        for (#dto_up# dto : #dto_low#S) {
+            #vo_up# #vo_low# = dto.transferToVo();
+            list.add(#vo_low#);
+        }
+        PageVO pageVO = new PageVO();
+        pageVO.setData(list);
+        pageVO.setPageNum(#model_low#.getPageNum());
+        pageVO.setPageSize(#model_low#.getPageSize());
+        pageVO.setTotal(total);
+        return pageVO;
+    }
+
+
+    @Override
+    public int insertOneForWeb(#model_up# #model_low#) {
+        #dto_up# #dto_low# = #model_low#.transferToDto();
+        return insertOne(#dto_low#);
+    }
+
+    @Override
+    public int insertListForWeb(List<#model_up#> #model_low#) {
+        List<#dto_up#> list = new ArrayList<>(#model_low#.size());
+        for (#model_up# dataModel : #model_low#) {
+            #dto_up# #dto_low# = dataModel.transferToDto();
+            list.add(#dto_low#);
+        }
+        return insertList(list);
+    }
+
+
+    @Override
+    public int updateOneForWeb(#model_up# #model_low#) {
+        #dto_up# #dto_low# = #model_low#.transferToDto();
+        return updateOne(#dto_low#);
+    }
+    #web_content#
+
+    @Override
+    public List<#dto_up#> selectList(#model_up# #model_low#) {
+        List<#dto_up#> #dto_low#S = #mapper_low#.selectListByModel(#model_low#);
+        return #dto_low#S;
+    }
+
+    @Override
+    public #dto_up# selectById(Integer id) {
+        #dto_up# #dto_low# = #mapper_low#.selectById(id);
+        return #dto_low#;
+    }
+
+
+    @Override
+    public int insertOne(#dto_up# #dto_low#) {
+        return #mapper_low#.insertOne(#dto_low#);
+    }
+
+    @Override
+    public int insertList(List<#dto_up#> #dto_low#) {
+        return #mapper_low#.insertList(#dto_low#);
+    }
+
+    @Override
+    public int updateOne(#dto_up# #dto_low#) {
+        return #mapper_low#.updateOne(#dto_low#);
+    }
+
+
+    @Override
+    public int delteByIds(String ids) {
+        String[] split = ids.trim().split(",");
+        if (split.length > 1) {
+            List<Integer> integers = new ArrayList<>(split.length);
+            for (String s : split) {
+                integers.add(Integer.valueOf(s));
+            }
+            return #mapper_low#.delteByIds(integers);
+        } else {
+            return #mapper_low#.delteById(Integer.valueOf(split[0]));
+        }
+    }
+}

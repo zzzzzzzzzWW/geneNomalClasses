@@ -1,0 +1,29 @@
+package #project.bashdir#.domain.vo;
+
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class PageVO {
+
+    /**
+     * 每页展示的数量
+     * */
+    private int pageSize;
+
+    /**
+    * 查看的页数
+    * */
+    private int pageNum;
+
+    /**
+     * 总条数
+     * */
+    private int total;
+
+    /**
+     * 数据
+     * */
+    private List data;
+}

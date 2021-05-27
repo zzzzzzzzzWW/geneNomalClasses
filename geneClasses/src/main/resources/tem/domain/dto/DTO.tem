@@ -1,0 +1,31 @@
+package #project.bashdir#.domain.dto;
+
+import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
+import #project.bashdir#.domain.vo.#vo_up#;
+
+/**
+ * 【请填写功能描述】DTO
+ *
+ * @author 【请填写作者】
+ * @date 【请填写日期】
+ */
+@Data
+public class #dto_up# {
+
+    #Field_content_start#
+    /**
+     * #commont#
+     */
+    private #fieldType# #fieldName#;
+    #Field_content_end#
+
+    public #vo_up# transferToVo() {
+        #vo_up# #vo_low# = new #vo_up#();
+        #set_content#
+        #vo_low#.#setName#(this.#getName#());
+        return #vo_low#;
+    }
+
+}

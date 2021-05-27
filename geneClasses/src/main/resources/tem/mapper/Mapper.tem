@@ -1,0 +1,96 @@
+package #project.bashdir#.mapper;
+
+import #project.bashdir#.domain.dto.#dto_up#;
+import #project.bashdir#.domain.model.#model_up#;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
+import java.time.LocalDateTime;
+
+import java.util.List;
+
+/**
+ * 【请填写功能描述】 mapper
+ *
+ * @author 【请填写作者】
+ * @date 【请填写日期】
+ */
+@Mapper
+public interface #mapper_up# {
+
+    @Results(id = "bathMap",value = {
+            #result_start#
+            @Result(property = "#propertyName#" ,column = "#columName#",javaType = #javaType#.class,jdbcType = JdbcType.#jdbcType# #{id}),
+            #result_end#
+    })
+    @Select("<script>" +
+            "select #all_fields# from #tableName# " +
+            "<where>" +
+            #condition_start#
+                "<if test='dto.#propertyName#!=null #str_condition#'> and #columName#=#{dto.#propertyName#}</if>" +
+            #condition_end#
+            #condition_date_start#
+                "<if test='dto.#startDate#!=null and dto.#endDate#!=null'> and #columName# between #{dto.#startDate#} and #{dto.#endDate#}</if>" +
+            #condition_date_end#
+            "</where>" +
+                "<if test='dto.orderBy!=null and dto.sort!=\"\"'> order by #{dto.orderBy} #{dto.sort}</if>" +
+                "<if test='dto.pageSize!=null and dto.pageNum!=null'> limit #{dto.pageSize} offset #{dto.offset} </if>" +
+            "</script>")
+    List<#dto_up#> selectListByModel(@Param("dto") #model_up# #model_low#);
+
+
+    @Select("<script>" +
+            "select count(1) from #tableName# " +
+            "<where>" +
+            #condition_update_start#
+                "<if test='dto.#propertyName#!=null #str_condition#'> and #columName#=#{dto.#propertyName#}</if>" +
+            #condition_update_end#
+            #condition_date_start#
+                 "<if test='dto.#startDate#!=null and dto.#endDate#!=null'> and #columName# between #{dto.#startDate#} and #{dto.#endDate#}</if>" +
+            #condition_date_end#
+            "</where>" +
+            "</script>")
+    int countByModel(@Param("dto") #model_up# #model_low#);
+
+
+
+    @Delete("delete from #tableName# where id =#{id}")
+    int delteById(@Param("id") #idKey_javaType# id);
+
+    @Delete("<script>" +
+            "delete from #tableName# where id in " +
+            "<foreach item = 'item' index = 'index' collection = 'ids'  separator=',' open = '(' close= ')'>" +
+                "#{item}" +
+            "</foreach>" +
+            "</script>")
+    int delteByIds(@Param("ids") List<#idKey_javaType#> ids);
+
+    @ResultMap("bathMap")
+    @Select("select #all_fields# from #tableName# where id = #{id}")
+    #dto_up# selectById(@Param("id") #idKey_javaType# id);
+
+    @Insert( "insert into #tableName#(#insert_fields#) values (" +
+            "#insert_properties#)"
+            )
+    //@Options(useGeneratedKeys=true,keyProperty="#idKey_property#",keyColumn="#idKey_column#")
+    int insertOne(@Param("item") #dto_up# #dto_low#);
+
+    @Insert("<script>" +
+            "insert into #tableName# (age,name) values " +
+            " <foreach item = 'item' index = 'index' collection ='dtos'  separator=',' open='(' close=')'>" +
+                "#insert_properties#" +
+            "</foreach>" +
+            "</script>")
+    int insertList(@Param("dtos") List<#dto_up#> #dto_low#);
+
+    @Update("<script>" +
+            "update #tableName# " +
+            "<set>" +
+            #condition_update_start#
+                "<if test='dto.#propertyName#!=null #str_condition#'> #columName#=#{dto.#propertyName#},</if>" +
+            #condition_update_end#
+            "</set>" +
+            "where id =#{dto.id}" +
+            "</script>")
+    int updateOne(@Param("dto") #dto_up# #dto_low#);
+
+}

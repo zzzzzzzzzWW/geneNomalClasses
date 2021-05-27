@@ -1,0 +1,59 @@
+package #project.bashdir#.rest;
+
+import #project.bashdir#.domain.ReturnObj;
+import #project.bashdir#.domain.model.#model_up#;
+import #project.bashdir#.domain.vo.PageVO;
+import #project.bashdir#.domain.vo.#vo_up#;
+import #project.bashdir#.service.#service_up#;
+import #project.bashdir#.rest.BaseRest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * 【请填写功能描述】controller
+ *
+ * @author 【请填写作者】
+ * @date 【请填写日期】
+ */
+@RestController
+@RequestMapping("/sys")
+@Slf4j
+public class #controller# extends BaseRest {
+
+
+    @Autowired
+    private #service_up# #service_low#;
+
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    public ReturnObj selectPageList(@Validated @RequestBody(required = false) #model_up# #model_low#) {
+        PageVO pageVO = #service_low#.selectListForWeb(#model_low#);
+        return success(pageVO);
+    }
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public ReturnObj selectOne(@PathVariable #idKey_javaType# id) {
+        #vo_up# #vo_low# =  #service_low#.selectByIdForWeb(id);
+        return success(#vo_low#);
+    }
+
+    @RequestMapping(value = "",method = RequestMethod.POST)
+    public ReturnObj saveOne(@Validated @RequestBody #model_up# #model_low#) {
+        #service_low#.insertOneForWeb(#model_low#);
+        return success();
+    }
+
+    @RequestMapping(value = "",method = RequestMethod.PUT)
+    public ReturnObj updateOne(@Validated @RequestBody #model_up# #model_low#) {
+        #service_low#.updateOneForWeb(#model_low#);
+        return success();
+    }
+
+    @RequestMapping(value = "/{ids}",method = RequestMethod.DELETE)
+    public ReturnObj deleteList(@PathVariable("ids") String ids) {
+         #service_low#.delteByIds(ids);
+        return success();
+    }
+
+}

@@ -1,0 +1,26 @@
+package #project.bashdir#.rest;
+
+import #project.bashdir#.domain.ReturnObj;
+
+
+public class BaseRest {
+    protected ReturnObj success() {
+        return new ReturnObj();
+    }
+    protected ReturnObj failure() {
+        ReturnObj returnObj = new ReturnObj(500);
+        returnObj.setMsg("failure");
+        return returnObj;
+    }
+    protected ReturnObj success(Object obj) {
+        return new ReturnObj(obj);
+    }
+
+    protected ReturnObj failure(Object obj) {
+        ReturnObj returnObj = new ReturnObj(500);
+        returnObj.setMsg("failure");
+        returnObj.setData(obj);
+        return returnObj;
+    }
+
+}

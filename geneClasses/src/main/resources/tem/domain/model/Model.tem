@@ -1,0 +1,33 @@
+package #project.bashdir#.domain.model;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import #project.bashdir#.domain.model.PageModel;
+import #project.bashdir#.domain.dto.#dto_up#;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+/**
+ * 【请填写功能描述】model
+ *
+ * @author 【请填写作者】
+ * @date 【请填写日期】
+ */
+@Data
+public class #model_up# extends PageModel {
+
+    #Field_content_start#
+    /**
+    * #commont#
+    */
+    private #fieldType# #fieldName#;
+    #Field_content_end#
+
+    public #dto_up# transferToDto() {
+        #dto_up# #dto_low# = new #dto_up#();
+        #set_content#
+        #dto_low#.#setName#(this.#getName#());
+        return #dto_low#;
+    }
+
+}

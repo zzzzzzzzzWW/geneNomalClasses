@@ -1,0 +1,115 @@
+package #project.bashdir#.service;
+
+import #project.bashdir#.domain.model.#model_up#;
+#web_content#
+import #project.bashdir#.domain.vo.PageVO;
+import #project.bashdir#.domain.vo.#vo_up#;
+#web_content#
+import #project.bashdir#.domain.dto.#dto_up#;
+
+import java.util.List;
+
+/**
+ * 【请填写功能描述】 接口
+ *
+ * @author 【请填写作者】
+ * @date 【请填写日期】
+ */
+public interface #service_up# {
+
+    #web_content#
+    /**
+     * 页面 批量录入
+     *
+     * @param #model_low#
+     * @return 影响行数
+     */
+    int insertListForWeb(List<#model_up#> #model_low#);
+
+    /**
+     * 页面 插入单个
+     *
+     * @param #model_low#
+     * @return 影响行数
+     */
+    int insertOneForWeb(#model_up# #model_low#);
+
+
+    /**
+     * 页面 更新单个
+     *
+     * @param #model_low#
+     * @return 影响行数
+     */
+    int updateOneForWeb(#model_up# #model_low#);
+
+    /**
+     * 页面 查询多条
+     *
+     * @param #model_low#
+     * @return 分页对象
+     */
+    PageVO selectListForWeb(#model_up# #model_low#);
+
+
+    /**
+     * 页面 查询单条
+     *
+     * @param id
+     * @return #dto_low# 对象
+     */
+    #vo_up# selectByIdForWeb(Integer id);
+    #web_content#
+
+
+    /**
+     * 查询多条
+     *
+     * @param #model_low#
+     * @return List 对象
+     */
+    List<#dto_up#> selectList(#model_up# #model_low#);
+
+
+    /**
+     * 插入单条数据
+     *
+     * @param #dto_low#
+     * @return int 影响行数
+     */
+    int insertOne(#dto_up# #dto_low#);
+
+    /**
+     * 批量插入
+     *
+     * @param #dto_low#
+     * @return int 影响行数
+     */
+    int insertList(List<#dto_up#> #dto_low#);
+
+    /**
+     * 更新单条
+     *
+     * @param #dto_low#
+     * @return int 影响行数
+     */
+    int updateOne(#dto_up# #dto_low#);
+
+    /**
+     * 按id删除.多个id逗号相隔
+     * eg: id1,id2,id3
+     *
+     * @param ids
+     * @return int 影响行数
+     */
+    int delteByIds(String ids);
+
+
+    /**
+     * 根据id查询
+     *
+     * @param id
+     * @return #dto_up#
+     */
+    #dto_up# selectById(Integer id);
+}
