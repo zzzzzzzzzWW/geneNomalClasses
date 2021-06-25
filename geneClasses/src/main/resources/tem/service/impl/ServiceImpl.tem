@@ -30,7 +30,7 @@ public class #serviceImpl_up# implements #service_up# {
 
     #web_content#
     @Override
-    public #vo_up# selectByIdForWeb(Integer id) {
+    public #vo_up# selectByIdForWeb(#idKey_javaType# id) {
         #dto_up# #dto_low# = selectById(id);
         if (null != #dto_low#) {
             #vo_up# #vo_low# = #dto_low#.transferToVo();
@@ -89,7 +89,7 @@ public class #serviceImpl_up# implements #service_up# {
     }
 
     @Override
-    public #dto_up# selectById(Integer id) {
+    public #dto_up# selectById(#idKey_javaType# id) {
         #dto_up# #dto_low# = #mapper_low#.selectById(id);
         return #dto_low#;
     }
@@ -115,13 +115,14 @@ public class #serviceImpl_up# implements #service_up# {
     public int delteByIds(String ids) {
         String[] split = ids.trim().split(",");
         if (split.length > 1) {
-            List<Integer> integers = new ArrayList<>(split.length);
-            for (String s : split) {
-                integers.add(Integer.valueOf(s));
+            List<#idKey_javaType# > idList = new ArrayList<>(split.length);
+            for (String id : split) {
+                idList.add(#id_type_tranfer#);
             }
-            return #mapper_low#.delteByIds(integers);
+            return #mapper_low#.delteByIds(idList);
         } else {
-            return #mapper_low#.delteById(Integer.valueOf(split[0]));
+            String id = split[0];
+            return #mapper_low#.delteById(#id_type_tranfer#);
         }
     }
 }

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 【请填写日期】
  */
 @RestController
-@RequestMapping("/sys")
+@RequestMapping("#request_url#")
 @Slf4j
 public class #controller# extends BaseRest {
 
@@ -27,7 +27,7 @@ public class #controller# extends BaseRest {
     private #service_up# #service_low#;
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public ReturnObj selectPageList(@Validated @RequestBody(required = false) #model_up# #model_low#) {
+    public ReturnObj selectPageList(@Validated @RequestBody(required = true) #model_up# #model_low#) {
         PageVO pageVO = #service_low#.selectListForWeb(#model_low#);
         return success(pageVO);
     }

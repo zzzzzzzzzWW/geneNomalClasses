@@ -5,7 +5,7 @@ import #project.bashdir#.domain.model.#model_up#;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import java.time.LocalDateTime;
-
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ public interface #mapper_up# {
                 "<if test='dto.#startDate#!=null and dto.#endDate#!=null'> and #columName# between #{dto.#startDate#} and #{dto.#endDate#}</if>" +
             #condition_date_end#
             "</where>" +
-                "<if test='dto.orderBy!=null and dto.sort!=\"\"'> order by #{dto.orderBy} #{dto.sort}</if>" +
+                "<if test='dto.orderBy!=null and dto.sort!=\"\"'> order by #{dto.orderBy} ${dto.sort}</if>" +
                 "<if test='dto.pageSize!=null and dto.pageNum!=null'> limit #{dto.pageSize} offset #{dto.offset} </if>" +
             "</script>")
     List<#dto_up#> selectListByModel(@Param("dto") #model_up# #model_low#);
@@ -53,11 +53,11 @@ public interface #mapper_up# {
 
 
 
-    @Delete("delete from #tableName# where id =#{id}")
+    @Delete("delete from #tableName# where #idKey_column# =#{id}")
     int delteById(@Param("id") #idKey_javaType# id);
 
     @Delete("<script>" +
-            "delete from #tableName# where id in " +
+            "delete from #tableName# where #idKey_column# in " +
             "<foreach item = 'item' index = 'index' collection = 'ids'  separator=',' open = '(' close= ')'>" +
                 "#{item}" +
             "</foreach>" +
@@ -65,7 +65,7 @@ public interface #mapper_up# {
     int delteByIds(@Param("ids") List<#idKey_javaType#> ids);
 
     @ResultMap("bathMap")
-    @Select("select #all_fields# from #tableName# where id = #{id}")
+    @Select("select #all_fields# from #tableName# where #idKey_column# = #{id}")
     #dto_up# selectById(@Param("id") #idKey_javaType# id);
 
     @Insert( "insert into #tableName#(#insert_fields#) values (" +
@@ -75,9 +75,9 @@ public interface #mapper_up# {
     int insertOne(@Param("item") #dto_up# #dto_low#);
 
     @Insert("<script>" +
-            "insert into #tableName# (age,name) values " +
-            " <foreach item = 'item' index = 'index' collection ='dtos'  separator=',' open='(' close=')'>" +
-                "#insert_properties#" +
+            "insert into #tableName# (#insert_fields#) values " +
+            " <foreach item = 'item' index = 'index' collection ='dtos'  separator=',' >" +
+                "(#insert_properties#)" +
             "</foreach>" +
             "</script>")
     int insertList(@Param("dtos") List<#dto_up#> #dto_low#);
@@ -89,7 +89,7 @@ public interface #mapper_up# {
                 "<if test='dto.#propertyName#!=null #str_condition#'> #columName#=#{dto.#propertyName#},</if>" +
             #condition_update_end#
             "</set>" +
-            "where id =#{dto.id}" +
+            "where #idKey_column# =#{dto.#idKey_property# }" +
             "</script>")
     int updateOne(@Param("dto") #dto_up# #dto_low#);
 

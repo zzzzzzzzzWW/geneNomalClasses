@@ -58,7 +58,7 @@ public interface #service_up# {
      * @param id
      * @return #dto_low# 对象
      */
-    #vo_up# selectByIdForWeb(Integer id);
+    #vo_up# selectByIdForWeb(#idKey_javaType# id);
     #web_content#
 
 
@@ -111,5 +111,5 @@ public interface #service_up# {
      * @param id
      * @return #dto_up#
      */
-    #dto_up# selectById(Integer id);
+    #dto_up# selectById(#idKey_javaType#  id);
 }

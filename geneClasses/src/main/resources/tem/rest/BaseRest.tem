@@ -16,10 +16,23 @@ public class BaseRest {
         return new ReturnObj(obj);
     }
 
-    protected ReturnObj failure(Object obj) {
+    protected ReturnObj failure(Object data) {
         ReturnObj returnObj = new ReturnObj(500);
         returnObj.setMsg("failure");
-        returnObj.setData(obj);
+        returnObj.setData(data);
+        return returnObj;
+    }
+
+    protected ReturnObj failure(Object data,String msg) {
+        ReturnObj returnObj = new ReturnObj(500);
+        returnObj.setMsg(msg);
+        returnObj.setData(data);
+        return returnObj;
+    }
+
+    protected ReturnObj failure(String msg) {
+        ReturnObj returnObj = new ReturnObj(500);
+        returnObj.setMsg(msg);
         return returnObj;
     }
 

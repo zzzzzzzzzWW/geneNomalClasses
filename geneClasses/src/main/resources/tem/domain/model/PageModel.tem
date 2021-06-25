@@ -2,22 +2,16 @@ package #project.bashdir#.domain.model;
 
 import lombok.Data;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.NotNull;
 
 @Data
 public abstract class PageModel {
 
-    @NotNull(message = "分页字段 pageSize 不能为空")
-    @Min(value = 0)
-    protected Integer pageSize ;
+    protected Integer pageSize = 10;
 
-    @NotNull(message = "分页字段 pageNum 不能为空")
-    @Min(value = 1)
-    protected Integer pageNum;
+    protected Integer pageNum = 1;
 
-    protected String orderBy = "createdTime";
+    protected String orderBy ;
 
     @Pattern(regexp = "asc|desc")
     protected String sort = "desc";
