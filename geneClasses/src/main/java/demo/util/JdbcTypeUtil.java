@@ -101,6 +101,9 @@ public class JdbcTypeUtil {
             case "INT4":
                 str = "INTEGER";
                 break;
+            case "INT8":
+                str = "BIGINT";
+                break;
             case "FLOAT8":
                 str = "DOUBLE";
                 break;

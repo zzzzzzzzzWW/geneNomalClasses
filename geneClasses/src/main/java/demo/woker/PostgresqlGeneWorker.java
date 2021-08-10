@@ -67,7 +67,9 @@ public class PostgresqlGeneWorker extends GeneWorker {
             fieldVO.setJavaType(typeTranfer);
             fieldVO.setJdbcType(JdbcTypeUtil.getJdbcType(type));
             fieldVO.setCommont(rs.getString("Comment")==null?"":rs.getString("Comment"));
-            fieldVO.setId(idKey.equals(fiedlName));
+            if (null != idKey) {
+                fieldVO.setId(idKey.equals(fiedlName));
+            }
             if (JavaTypeUtil.isDate(fieldVO.getJavaType())) {
                 //model 还需创建 xxxStart ,xxxEnd
                 FieldVO fieldStart = new FieldVO();
